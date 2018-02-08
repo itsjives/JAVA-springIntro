@@ -56,7 +56,16 @@ public class H2crudApplication implements CommandLineRunner {
 
 		productRepo.save(product3);
 
-		productRepo.delete(product3);
+		Product foundProduct = productRepo.findByType("GENERAL");
+
+		if(foundProduct != null){
+			LOG.info("DB COUNT: " + productRepo.count());
+			productRepo.delete(foundProduct);
+			LOG.info("Product is deleted!");
+			LOG.info("DB COUNT: " + productRepo.count());
+
+		}
+
 
 		Product productToUpdate = productRepo.findByType("SPECIFIC");
 		if(productToUpdate != null){
