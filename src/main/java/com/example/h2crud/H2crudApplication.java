@@ -10,7 +10,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Logger;
 
 @SpringBootApplication
 public class H2crudApplication implements CommandLineRunner {
@@ -56,6 +55,20 @@ public class H2crudApplication implements CommandLineRunner {
 		product3.setPrice(78.0);
 
 		productRepo.save(product3);
+
+		productRepo.delete(product3);
+
+		Product productToUpdate = productRepo.findByType("SPECIFIC");
+		if(productToUpdate != null){
+
+			LOG.info("BEFORE UPDATE" + productToUpdate);
+
+			productToUpdate.setName("Updated This");
+			productToUpdate.setDescription("Updated description");
+
+			Product updated = productRepo.save(productToUpdate);
+			LOG.info("UPDATED PRODUCT: " + updated.toString());
+		}
 
 //		List<Product> products = productRepo.findAll();
 //
